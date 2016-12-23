@@ -121,11 +121,36 @@ var powerOfTwo = function (n) {
 
 // 9. Write a function that accepts a string a reverses it.
 var reverse = function (string) {
-  return string.split('').reverse().join('');
+  var count = arguments[1] || 0;
+  if (count === Math.floor(string.length / 2)) {
+    return string;
+  } else {
+    var letters = string.split('');
+    var temp = letters[count];
+    letters[count] = letters[letters.length - count - 1];
+    letters[letters.length - count - 1] = temp;
+    var newString = letters.join('');
+    count++;
+    return reverse(newString, count);
+  }
 };
 
 // 10. Write a function that determines if a string is a palindrome.
-var palindrome = function (string) {};
+var palindrome = function (string) {
+  var lowerString = string.toLowerCase();
+  var noSpace = lowerString.replace(/\s/g, '');
+  if(noSpace[0] !== noSpace[noSpace.length - 1]) {
+    return false;
+  } else if (noSpace.length <= 1) {
+    return true;
+  } else {
+    var letters = noSpace.split('');
+    letters.shift();
+    letters.pop();
+    var newString = letters.join('');
+    return palindrome(newString);
+  }
+};
 
 // 11. Write a function that returns the remainder of x divided by y without using the
 // modulo (%) operator.
